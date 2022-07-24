@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  database-company-a:
+    image: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - poc_multi_tenancy
+    environment:
+      POSTGRES_USER: company-a-user
+      POSTGRES_PASSWORD: company-a-password
+    volumes:
+      - company_a_postgresql:/var/lib/postgresql
+      - company_a_postgresql_data:/var/lib/postgresql/data
+    restart: unless-stopped
+  database-company-b:
+    image: postgres
+    ports:
+      - "5434:5432"
+    networks:
+      - poc_multi_tenancy
+    environment:
+      POSTGRES_USER: company-b-user
+      POSTGRES_PASSWORD: company-b-password
+    volumes:
+      - company_b_postgresql:/var/lib/postgresql
+      - company_b_postgresql_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+networks:
+  poc_multi_tenancy:
+    driver: bridge
+
+volumes:
+  company_a_postgresql:
+  company_a_postgresql_data:
+  company_b_postgresql:
+  company_b_postgresql_data:
