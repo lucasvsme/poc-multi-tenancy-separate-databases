@@ -51,9 +51,9 @@ tenant_a -- GET /products\nX-Tenant-Id: tenant-a --> api
 tenant_b -- GET /products\nX-Tenant-Id: tenant-b --> api
 tenant_n -. GET /products\nX-Tenant-Id: tenant-n -.-> api
 
-api --> tenant_a_database
-api --> tenant_b_database
-api -.-> tenant_n_database
+api -- public.PRODUCT --> tenant_a_database
+api -- public.PRODUCT --> tenant_b_database
+api -. public.PRODUCT -.-> tenant_n_database
 ```
 
 Logging statements from application startup during automated tests:
