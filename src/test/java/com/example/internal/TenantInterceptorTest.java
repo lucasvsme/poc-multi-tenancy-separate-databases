@@ -17,6 +17,19 @@ class TenantInterceptorTest {
     private WebTestClient webTestClient;
 
     @Test
+    void missingTenant() {
+        webTestClient.get()
+                .uri("/")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+                .expectBody()
+                .jsonPath("$.title").isEqualTo("Missing database tenant")
+                .jsonPath("$.detail").isEqualTo("Header X-Tenant-Id was not present in the request")
+                .jsonPath("$.status").isEqualTo(400)
+                .jsonPath("$.properties").doesNotExist();
+    }
+
+    @Test
     void unknownTenant() {
         final var tenantId = "foo";
 
