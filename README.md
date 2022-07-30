@@ -56,6 +56,18 @@ api -- public.PRODUCT --> tenant_b_database
 api -. public.PRODUCT -.-> tenant_n_database
 ```
 
+Database structure for each DataSource:
+
+```mermaid
+erDiagram
+    public__PRODUCT {
+        BIGINT PRODUCT_ID PK
+        VARCHAR PRODUCT_NAME
+    }
+```
+
+> Symbol `__` means `.`, so `public__PRODUCT` means `public.PRODUCT`.
+
 Logging statements from application startup during automated tests:
 
 ```text
